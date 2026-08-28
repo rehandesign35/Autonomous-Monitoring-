@@ -1,0 +1,64 @@
+{
+  "company": "SunPeak Solar",
+  "market": "Residential solar",
+  "lastUpdated": "2026-08-29T10:45:00-07:00",
+  "currency": "USD",
+  "tiers": [
+    {
+      "name": "SunCore 6",
+      "priceMonthly": 89,
+      "priceLabel": "$89/mo",
+      "systemSizeKw": 6,
+      "description": "Ideal for smaller homes or offsetting a moderate utility bill.",
+      "features": [
+        "6 kW rooftop solar system",
+        "20 premium monocrystalline panels",
+        "Remote system monitoring",
+        "Standard inverter with 12-year warranty"
+      ],
+      "includedNote": "Includes installer labor and utility interconnection support."
+    },
+    {
+      "name": "SunBalance 8",
+      "priceMonthly": 129,
+      "priceLabel": "$129/mo",
+      "systemSizeKw": 8,
+      "description": "Balanced energy generation for larger homes and high daytime usage.",
+      "features": [
+        "8 kW rooftop solar system",
+        "30 high-efficiency panels",
+        "Whole-home production monitoring",
+        "10 kWh battery backup add-on available"
+      ],
+      "includedNote": "Best value for homeowners aiming to cut summer electric bills."
+    },
+    {
+      "name": "SunMax 10",
+      "priceMonthly": 169,
+      "priceLabel": "$169/mo",
+      "systemSizeKw": 10,
+      "description": "Maximum production for large families, EV charging, and upgraded energy use.",
+      "features": [
+        "10 kW rooftop solar system",
+        "38 premium panels with microinverters",
+        "Smart EV charging readiness",
+        "Premium roof and weather protection package"
+      ],
+      "includedNote": "Includes advanced production insights and post-install optimization review."
+    },
+    {
+      "name": "SunReserve",
+      "priceMonthly": 219,
+      "priceLabel": "From $219/mo",
+      "systemSizeKw": null,
+      "description": "Tailored for premium homes with storage, backup power, and advanced load management.",
+      "features": [
+        "Custom system sizing for your property",
+        "Battery storage and generator backup options",
+        "Priority service and annual maintenance",
+        "Dedicated energy advisor and custom proposal"
+      ],
+      "includedNote": "Designed for homeowners prioritizing resilience and long-term energy control."
+    }
+  ]
+}

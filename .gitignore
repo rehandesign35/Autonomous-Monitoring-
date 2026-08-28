@@ -1,0 +1,5 @@
+agent/.env
+dashboard/.env.local
+node_modules/
+.next/
+.vercel

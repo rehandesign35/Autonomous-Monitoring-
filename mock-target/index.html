@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SunPeak Solar | Pricing</title>
+    <meta
+      name="description"
+      content="SunPeak Solar pricing page for residential solar installation plans and battery backup packages."
+    />
+    <style>
+      :root {
+        --bg: #eef5f1;
+        --panel: #f8faf7;
+        --ink: #12251d;
+        --muted: #536a61;
+        --line: #d8e7dc;
+        --primary: #1d8a5d;
+        --primary-deep: #165f43;
+        --soft: #eaf7f0;
+        --sun: #f8d272;
+        --shadow: 0 24px 60px rgba(20, 54, 40, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: linear-gradient(180deg, #f3f8f5 0%, #edf3ef 100%);
+        color: var(--ink);
+        line-height: 1.6;
+      }
+      a { color: inherit; text-decoration: none; }
+      .container { width: min(1200px, calc(100% - 32px)); margin: 0 auto; }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(248, 250, 247, 0.88);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 86px;
+        gap: 20px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 11px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--primary) 0%, #95d4ae 100%);
+        color: white;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.28);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 22px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: white;
+        font-weight: 600;
+      }
+
+      .hero {
+        padding: 52px 0 34px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 28px;
+        align-items: center;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--soft);
+        color: var(--primary-deep);
+        font-size: 0.77rem;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 20px 0 16px;
+        font-size: clamp(2.6rem, 4vw, 4.2rem);
+        line-height: 1.06;
+        letter-spacing: -0.06em;
+      }
+      .hero-copy p {
+        margin: 0 0 24px;
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 620px;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .button-primary, .button-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        border-radius: 14px;
+        padding: 0 22px;
+        font-weight: 700;
+      }
+      .button-primary {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 16px 30px rgba(29, 138, 93, 0.2);
+      }
+      .button-secondary {
+        background: white;
+        border: 1px solid var(--line);
+        color: var(--ink);
+      }
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .insight-card {
+        background: linear-gradient(180deg, #f9fbfa 0%, #ecf5ef 100%);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 22px;
+        box-shadow: var(--shadow);
+      }
+      .chart-box {
+        border-radius: 22px;
+        background: linear-gradient(180deg, #e8f7ee 0%, #dfeee7 100%);
+        border: 1px solid #d0e8d8;
+        padding: 18px;
+        margin-bottom: 18px;
+      }
+      .bars {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 10px;
+        height: 140px;
+      }
+      .bar {
+        display: block;
+        width: 100%;
+        border-radius: 999px 999px 0 0;
+        background: linear-gradient(180deg, #b7dabc 0%, #2d9a66 100%);
+      }
+      .bar:nth-child(1) { height: 34%; }
+      .bar:nth-child(2) { height: 52%; }
+      .bar:nth-child(3) { height: 68%; }
+      .bar:nth-child(4) { height: 86%; }
+      .bar:nth-child(5) { height: 100%; }
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .stat {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px 12px;
+      }
+      .stat strong {
+        display: block;
+        font-size: 1.55rem;
+        letter-spacing: -0.05em;
+        margin-bottom: 4px;
+      }
+      .stat span { color: var(--muted); font-size: 0.8rem; }
+
+      .pricing-section {
+        padding: 28px 0 90px;
+      }
+      .section-header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+      .section-header h2 {
+        margin: 0;
+        font-size: clamp(2rem, 2.6vw, 3rem);
+        letter-spacing: -0.05em;
+      }
+      .section-header p {
+        margin: 10px 0 0;
+        color: var(--muted);
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid #f1dba5;
+        background: #fff8e8;
+        color: #7d5e14;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(220px, 1fr));
+        gap: 18px;
+      }
+      .tier {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 20px 20px 18px;
+        display: flex;
+        flex-direction: column;
+        min-height: 500px;
+        box-shadow: 0 12px 24px rgba(19, 45, 33, 0.04);
+      }
+      .tier.featured {
+        background: linear-gradient(180deg, #132d26 0%, #173c2e 100%);
+        color: white;
+        border-color: rgba(255,255,255,0.08);
+        transform: translateY(-8px);
+      }
+      .tier-label {
+        display: inline-flex;
+        align-self: flex-start;
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+      .tier:not(.featured) .tier-label {
+        background: var(--soft);
+        color: var(--primary-deep);
+      }
+      .tier.featured .tier-label {
+        background: rgba(255,255,255,0.12);
+        color: white;
+      }
+      .tier h3 {
+        margin: 18px 0 8px;
+        font-size: 1.7rem;
+        letter-spacing: -0.04em;
+      }
+      .price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .price {
+        font-size: 2.5rem;
+        letter-spacing: -0.06em;
+        font-weight: 800;
+      }
+      .price-row small {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      .tier.featured .price-row small,
+      .tier.featured .description,
+      .tier.featured ul li,
+      .tier.featured .fine-print {
+        color: rgba(255,255,255,0.82);
+      }
+      .description {
+        color: var(--muted);
+        margin: 0 0 18px;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 24px;
+        display: grid;
+        gap: 12px;
+      }
+      ul li {
+        position: relative;
+        padding-left: 24px;
+        color: var(--ink);
+      }
+      ul li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--primary);
+        font-weight: 800;
+      }
+      .tier.featured ul li::before { color: #a8ebbe; }
+      .fine-print {
+        margin-top: auto;
+        color: var(--muted);
+        font-size: 0.84rem;
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+      }
+      .note {
+        margin-top: 22px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .site-footer {
+        background: #13251e;
+        color: rgba(255,255,255,0.8);
+        padding: 40px 0 50px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        gap: 24px;
+      }
+      .footer-brand {
+        max-width: 440px;
+      }
+      .footer-brand h3 { margin: 0 0 10px; color: white; }
+      .footer-links {
+        display: grid;
+        gap: 9px;
+      }
+      .footer-links h4 {
+        margin: 0 0 10px;
+        color: white;
+        font-size: 1rem;
+      }
+      .footer-links a { color: rgba(255,255,255,0.7); }
+      .footer-bottom {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255,255,255,0.12);
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid, .pricing-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+        .hero-grid { grid-template-columns: 1fr; }
+        .pricing-grid { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+      }
+      @media (max-width: 640px) {
+        .header-inner, .section-header, .footer-bottom { flex-direction: column; align-items: flex-start; }
+        .nav { display: none; }
+        .pricing-grid, .footer-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand" aria-label="SunPeak Solar home">
+          <span class="brand-mark">☀</span>
+          <span>SunPeak Solar</span>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#solutions">Solutions</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#projects">Projects</a>
+          <a href="#financing">Financing</a>
+          <a href="#support">Support</a>
+        </nav>
+
+        <a href="#pricing" class="cta">Get a quote</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Energy that pays you back</span>
+            <h1>Solar plans designed for your home, your bill, and your future.</h1>
+            <p>
+              Choose the system size and backup coverage that fits your property. Every SunPeak
+              installation includes premium panels, smart monitoring, and a clean, code-compliant
+              setup from start to finish.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#pricing" class="button-primary">Compare plans</a>
+              <a href="#support" class="button-secondary">Talk to an advisor</a>
+            </div>
+
+            <div class="hero-meta" aria-label="Key selling points">
+              <span>25-year performance warranty</span>
+              <span>Zero-down financing available</span>
+              <span>5-star local install team</span>
+            </div>
+          </div>
+
+          <aside class="insight-card" aria-label="Performance summary">
+            <div class="chart-box" aria-hidden="true">
+              <div class="bars">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
+            </div>
+
+            <div class="stat-grid">
+              <div class="stat">
+                <strong>8.4 kW</strong>
+                <span>Average home system</span>
+              </div>
+              <div class="stat">
+                <strong>31%</strong>
+                <span>Lower energy spend</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pricing-section" id="pricing">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <h2>Simple solar pricing</h2>
+              <p>Transparent packages for homeowners ready to save with reliable solar.</p>
+            </div>
+            <div class="tag">Last updated: Aug 29, 2026 • 10:45 AM PT</div>
+          </div>
+
+          <div class="pricing-grid" aria-label="Solar pricing tiers">
+            <article class="tier">
+              <div class="tier-label">Starter</div>
+              <h3>SunCore 6</h3>
+              <div class="price-row">
+                <span class="price">$89</span>
+                <small>/month</small>
+              </div>
+              <p class="description">Ideal for smaller homes or offsetting a moderate utility bill.</p>
+
+              <ul>
+                <li>6 kW rooftop solar system</li>
+                <li>20 premium monocrystalline panels</li>
+                <li>Remote system monitoring</li>
+                <li>Standard inverter with 12-year warranty</li>
+              </ul>
+
+              <div class="fine-print">Includes installer labor and utility interconnection support.</div>
+            </article>
+
+            <article class="tier featured">
+              <div class="tier-label">Most popular</div>
+              <h3>SunBalance 8</h3>
+              <div class="price-row">
+                <span class="price">$129</span>
+                <small>/month</small>
+              </div>
+              <p class="description">Balanced energy generation for larger homes and high daytime usage.</p>
+
+              <ul>
+                <li>8 kW rooftop solar system</li>
+                <li>30 high-efficiency panels</li>
+                <li>Whole-home production monitoring</li>
+                <li>10 kWh battery backup add-on available</li>
+              </ul>
+
+              <div class="fine-print">Best value for homeowners aiming to cut summer electric bills.</div>
+            </article>
+
+            <article class="tier">
+              <div class="tier-label">High output</div>
+              <h3>SunMax 10</h3>
+              <div class="price-row">
+                <span class="price">$169</span>
+                <small>/month</small>
+              </div>
+              <p class="description">Maximum production for large families, EV charging, and upgraded energy use.</p>
+
+              <ul>
+                <li>10 kW rooftop solar system</li>
+                <li>38 premium panels with microinverters</li>
+                <li>Smart EV charging readiness</li>
+                <li>Premium roof and weather protection package</li>
+              </ul>
+
+              <div class="fine-print">Includes advanced production insights and post-install optimization review.</div>
+            </article>
+
+            <article class="tier">
+              <div class="tier-label">Custom</div>
+              <h3>SunReserve</h3>
+              <div class="price-row">
+                <span class="price">From $219</span>
+                <small>/month</small>
+              </div>
+              <p class="description">Tailored for premium homes with storage, backup power, and advanced load management.</p>
+
+              <ul>
+                <li>Custom system sizing for your property</li>
+                <li>Battery storage and generator backup options</li>
+                <li>Priority service and annual maintenance</li>
+                <li>Dedicated energy advisor and custom proposal</li>
+              </ul>
+
+              <div class="fine-print">Designed for homeowners prioritizing resilience and long-term energy control.</div>
+            </article>
+          </div>
+
+          <p class="note">
+            Financing terms vary by credit profile. Price examples shown are estimated monthly payments
+            and subject to local permitting and utility approval.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="support">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>SunPeak Solar</h3>
+            <p>
+              Clean energy systems built to lower bills, strengthen resilience, and make homes more
+              comfortable year-round.
+            </p>
+          </div>
+
+          <div class="footer-links">
+            <h4>Company</h4>
+            <a href="#solutions">Solutions</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#projects">Projects</a>
+            <a href="#financing">Financing</a>
+          </div>
+
+          <div class="footer-links">
+            <h4>Support</h4>
+            <a href="#support">Customer support</a>
+            <a href="#support">Request a quote</a>
+            <a href="#support">Warranty info</a>
+            <a href="#support">Contact sales</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 SunPeak Solar</span>
+          <span>Serving homeowners across California, Arizona, and Nevada</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

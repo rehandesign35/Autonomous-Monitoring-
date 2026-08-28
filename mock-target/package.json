@@ -1,0 +1,10 @@
+{
+  "name": "sunpeak-solar-mock-target",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static mock target site for autonomous monitoring agent testing.",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  }
+}
