@@ -50,8 +50,8 @@ A successful run with no changes is a normal no-op. Slack alerts are reserved fo
 
 ## Live demo
 
-- Dashboard: [your-dashboard-vercel-url-here.vercel.app](https://dashboard-livid-six-87.vercel.app)
-- Mock target: [your-mock-target-vercel-url-here.vercel.app](https://mock-target-one.vercel.app)
+- Dashboard: [https://dashboard-livid-six-87.vercel.app](https://dashboard-livid-six-87.vercel.app)
+- Mock target: [https://mock-target-one.vercel.app](https://mock-target-one.vercel.app)
 
 The dashboard is the main public-facing view. It displays run history, change records, and the v1 → v2 resilience proof.
 
