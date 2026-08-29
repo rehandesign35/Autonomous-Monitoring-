@@ -1,0 +1,14 @@
+{
+  "source": "mock-target/index.html",
+  "version": "v2",
+  "company": "SunPeak Solar",
+  "market": "Residential solar",
+  "lastUpdated": "2026-08-29T10:45:00-07:00",
+  "currency": "USD",
+  "tiers": [
+    { "name": "SunCore 6", "priceMonthly": 89, "priceLabel": "$89/mo", "systemSizeKw": 6, "features": ["6 kW rooftop solar system", "20 premium monocrystalline panels", "Remote system monitoring", "Standard inverter with 12-year warranty"] },
+    { "name": "SunBalance 8", "priceMonthly": 129, "priceLabel": "$129/mo", "systemSizeKw": 8, "features": ["8 kW rooftop solar system", "30 high-efficiency panels", "Whole-home production monitoring", "10 kWh battery backup add-on available"] },
+    { "name": "SunMax 10", "priceMonthly": 169, "priceLabel": "$169/mo", "systemSizeKw": 10, "features": ["10 kW rooftop solar system", "38 premium panels with microinverters", "Smart EV charging readiness", "Premium roof and weather protection package"] },
+    { "name": "SunReserve", "priceMonthly": 219, "priceLabel": "From $219/mo", "systemSizeKw": null, "features": ["Custom system sizing for your property", "Battery storage and generator backup options", "Priority service and annual maintenance", "Dedicated energy advisor and custom proposal"] }
+  ]
+}
