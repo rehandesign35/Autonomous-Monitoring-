@@ -1,18 +1,12 @@
 name: monitor-pricing-page
-
 on:
-  # Schedule is every 6 hours. To change it, update the cron expression:
-  # minute hour day-of-month month day-of-week
-  # Example: '0 */6 * * *' = every 6 hours at minute 0.
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
-
 jobs:
   monitor:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       MOCK_TARGET_URL: ${{ secrets.MOCK_TARGET_URL }}
@@ -20,42 +14,29 @@ jobs:
       SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
+      - name: Set up Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: agent/package-lock.json
-                - name: Print Node version
-        run: node --version
+      - name: Confirm Node version
+        run: |
+          echo "Node version being used:"
+          node --version
+          which node
       - name: Install agent dependencies
         working-directory: ./agent
-        run: |
-          npm install
-
+        run: npm install
       - name: Install Playwright Chromium
         working-directory: ./agent
-        run: |
-          npx playwright install --with-deps chromium
-
+        run: npx playwright install --with-deps chromium
       - name: Run monitoring agent
         working-directory: ./agent
-        run: |
-          npm run start
-
+        run: npm run start
       - name: Enforce non-success failure policy
         if: ${{ failure() }}
         run: |
-          echo "The monitoring run failed. This is a red X in GitHub Actions because the agent did not finish successfully."
+          echo "The monitoring run failed."
           exit 1
-
-      # Logic note:
-      # A successful run with zero detected changes is not failure; it's a normal baseline/no-op state.
-      # Only blocked or other unexpected outcomes should fail loudly. The agent itself logs the final status
-      # to Supabase and exits non-zero only for true bad states (load failures, extraction failures, anomalies,
-      # or other exceptions). A 'blocked' result is treated as an expected, logged outcome rather than a crash.
