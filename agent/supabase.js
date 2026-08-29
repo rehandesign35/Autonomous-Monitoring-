@@ -16,7 +16,7 @@ async function saveSnapshot({ sourceUrl, rawJson }) {
 
   const payload = {
     run_timestamp: new Date().toISOString(),
-    raw: rawJson,
+    data: rawJson,
     source_url: sourceUrl,
   };
 

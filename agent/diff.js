@@ -13,11 +13,11 @@ function normalizeComparableValue(value) {
 function diffPricingData(newData, previousData) {
   const changes = [];
 
-  if (!previousData || !previousData.raw) {
+  if (!previousData || !previousData.data) {
     return changes;
   }
 
-  const previousParsed = typeof previousData.raw === 'string' ? JSON.parse(previousData.raw) : previousData.raw;
+  const previousParsed = typeof previousData.data === 'string' ? JSON.parse(previousData.data) : previousData.data;
   const newParsed = typeof newData === 'string' ? JSON.parse(newData) : newData;
 
   const previousTiers = Array.isArray(previousParsed.tiers) ? previousParsed.tiers : [];
