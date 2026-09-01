@@ -1,5 +1,8 @@
 import { supabase } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getData() {
   if (!supabase) {
     return {
@@ -66,149 +69,13 @@ export default async function Home() {
   const data = await getData();
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="mx-auto max-w-7xl px-6 py-8">
-        <header className="mb-8 flex items-center justify-between border-b border-slate-800 pb-5">
-          <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-emerald-400">Monitoring</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white">Autonomous pricing monitor</h1>
-          </div>
-          <div className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-sm text-slate-300">
-            Mock target: SunPeak Solar
-          </div>
-        </header>
-
-        <section className="grid gap-4 md:grid-cols-4">
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-sm text-slate-400">Total runs</p>
-            <p className="mt-3 text-3xl font-semibold text-white">{data.stats.totalRuns}</p>
-          </div>
-
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-sm text-slate-400">Success rate</p>
-            <p className="mt-3 text-3xl font-semibold text-emerald-400">{data.stats.successRate}%</p>
-          </div>
-
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-sm text-slate-400">Changes detected</p>
-            <p className="mt-3 text-3xl font-semibold text-amber-300">{data.stats.totalChanges}</p>
-          </div>
-
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-sm text-slate-400">Blocks / failures</p>
-            <p className="mt-3 text-3xl font-semibold text-rose-400">{data.stats.blockedRuns + data.stats.failedRuns}</p>
-          </div>
-        </section>
-
-        <section className="mt-8 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-emerald-300">Resilience test</p>
-              <h2 className="mt-2 text-xl font-semibold text-white">v1 → v2 layout-change validation</h2>
-            </div>
-            <span className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-100">
-              Proof captured
-            </span>
-          </div>
-          <p className="mt-3 max-w-4xl text-sm text-emerald-100/90">
-            The mock target was redesigned from the original card-based v1 layout to a new v2 structure without changing the pricing content or agent code. The proof artifact is stored in the project docs and demonstrates that extraction still resolves the same company, pricing tiers, and last-updated values after the redesign.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <a href="/proof/resilience-proof.md" className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-2 text-sm font-medium text-emerald-100">
-              Open proof doc
-            </a>
-            <a href="/proof/before-snapshot.json" className="rounded-full border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm font-medium text-slate-200">
-              Before snapshot
-            </a>
-            <a href="/proof/after-snapshot.json" className="rounded-full border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm font-medium text-slate-200">
-              After snapshot
-            </a>
-          </div>
-        </section>
-
-        <section className="mt-8 grid gap-8 xl:grid-cols-[1.25fr_0.75fr]">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900">
-            <div className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
-              <h2 className="text-lg font-semibold text-white">Run history</h2>
-              <span className="rounded-full border border-slate-700 bg-slate-950 px-2.5 py-1 text-xs text-slate-300">
-                Live from Supabase
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-left text-sm">
-                <thead className="bg-slate-950 text-slate-400">
-                  <tr>
-                    <th className="px-5 py-3 font-medium">Timestamp</th>
-                    <th className="px-5 py-3 font-medium">Status</th>
-                    <th className="px-5 py-3 font-medium">Duration</th>
-                    <th className="px-5 py-3 font-medium">What happened</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.runs.length === 0 ? (
-                    <tr>
-                      <td colSpan={4} className="px-5 py-8 text-slate-400">
-                        No run data yet. The scheduled action has not produced a snapshot.
-                      </td>
-                    </tr>
-                  ) : (
-                    data.runs.map((run) => (
-                      <tr key={run.id} className="border-t border-slate-800">
-                        <td className="px-5 py-3 text-slate-200">{formatTimestamp(run.run_timestamp)}</td>
-                        <td className="px-5 py-3">
-                          <span className={`rounded-full px-2 py-1 text-xs font-medium ${
-                            run.status === 'success'
-                              ? 'bg-emerald-500/15 text-emerald-300'
-                              : run.status === 'blocked'
-                                ? 'bg-amber-500/15 text-amber-300'
-                                : run.status === 'failure'
-                                  ? 'bg-rose-500/15 text-rose-300'
-                                  : 'bg-sky-500/15 text-sky-300'
-                          }`}>
-                            {run.status}
-                          </span>
-                        </td>
-                        <td className="px-5 py-3 text-slate-300">{run.duration_ms ? `${run.duration_ms} ms` : '—'}</td>
-                        <td className="px-5 py-3 text-slate-300">{run.error_message || 'Monitoring run completed normally.'}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900">
-            <div className="border-b border-slate-800 px-5 py-4">
-              <h2 className="text-lg font-semibold text-white">Change log</h2>
-            </div>
-
-            <div className="space-y-3 p-4">
-              {data.changes.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-slate-700 bg-slate-950 p-4 text-sm text-slate-400">
-                  No changes detected yet.
-                </div>
-              ) : (
-                data.changes.map((change) => (
-                  <div key={change.id} className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <span className="text-xs uppercase tracking-[0.2em] text-slate-400">{change.field_changed}</span>
-                      <span className="text-xs text-slate-500">{formatTimestamp(change.detected_at)}</span>
-                    </div>
-                    <p className="text-sm text-slate-300">
-                      <span className="text-slate-500">Old:</span> {compactSummary(change.old_value)}
-                    </p>
-                    <p className="mt-2 text-sm text-slate-300">
-                      <span className="text-slate-500">New:</span> {compactSummary(change.new_value)}
-                    </p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </section>
+    <main className="monitor-shell"><div className="monitor-layout">
+      <aside className="monitor-rail"><div className="rail-brand"><span className="rail-mark">A</span><span>Autonomous<br />Monitoring</span></div><nav className="rail-nav" aria-label="Dashboard navigation"><span className="rail-nav-label">Workspace</span><a className="rail-link active" href="#overview"><span>01</span>Overview</a><a className="rail-link" href="#runs"><span>02</span>Run history</a><a className="rail-link" href="#changes"><span>03</span>Change log</a></nav><div className="rail-footer"><span className="status-dot" />Agent online<div className="rail-version">v0.8.4 / production</div></div></aside>
+      <div className="monitor-content"><header className="monitor-header" id="overview"><div><p className="kicker">Control room / 01</p><h1>Autonomous pricing monitor</h1></div><div className="target-chip"><span className="target-dot" />SunPeak Solar <span className="chip-divider" /> target active</div></header>
+        <section className="metric-grid"><div className="metric"><p>Total runs</p><strong>{data.stats.totalRuns}</strong><span className="metric-note">all time</span></div><div className="metric"><p>Success rate</p><strong className="accent">{data.stats.successRate}%</strong><span className="metric-note">completed cleanly</span></div><div className="metric"><p>Changes detected</p><strong>{data.stats.totalChanges}</strong><span className="metric-note">across snapshots</span></div><div className="metric"><p>Blocks / failures</p><strong className="warning">{data.stats.blockedRuns + data.stats.failedRuns}</strong><span className="metric-note">needs attention</span></div></section>
+        <section className="proof-banner"><div className="proof-heading"><div><p className="kicker amber">Resilience test / passed</p><h2>v1 <span>→</span> v2 layout-change validation</h2></div><span className="proof-state">Proof captured</span></div><p className="proof-copy">The mock target was redesigned from the original card-based v1 layout to a new v2 structure without changing the pricing content or agent code. The proof artifact is stored in the project docs and demonstrates that extraction still resolves the same company, pricing tiers, and last-updated values after the redesign.</p><div className="proof-links"><a href="/proof/resilience-proof.md">Open proof doc <span>↗</span></a><a href="/proof/before-snapshot.json">Before snapshot <span>↗</span></a><a href="/proof/after-snapshot.json">After snapshot <span>↗</span></a></div></section>
+        <section className="data-grid"><div className="data-panel" id="runs"><div className="panel-header"><div><p className="kicker">Activity / 24h</p><h2>Run history</h2></div><span className="live-label"><span />Live from Supabase</span></div><div className="table-wrap"><table><thead><tr><th>Timestamp</th><th>Status</th><th>Duration</th><th>What happened</th></tr></thead><tbody>{data.runs.length === 0 ? <tr><td colSpan={4} className="empty-row">No run data yet. The scheduled action has not produced a snapshot.</td></tr> : data.runs.map((run) => <tr key={run.id}><td>{formatTimestamp(run.run_timestamp)}</td><td><span className={`run-status ${run.status}`}>{run.status}</span></td><td>{run.duration_ms ? `${run.duration_ms} ms` : '—'}</td><td>{run.error_message || 'Monitoring run completed normally.'}</td></tr>)}</tbody></table></div></div><div className="data-panel" id="changes"><div className="panel-header"><div><p className="kicker">Diff stream</p><h2>Change log</h2></div></div><div className="change-list">{data.changes.length === 0 ? <div className="empty-change">No changes detected yet.</div> : data.changes.map((change) => <div key={change.id} className="change-item"><div className="change-top"><span>{change.field_changed}</span><time>{formatTimestamp(change.detected_at)}</time></div><p><b>Old</b>{compactSummary(change.old_value)}</p><p><b>New</b>{compactSummary(change.new_value)}</p></div>)}</div></div></section>
       </div>
-    </main>
+    </div></main>
   );
 }
