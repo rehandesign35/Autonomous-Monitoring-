@@ -36,6 +36,12 @@ Noise is ignored by design. For example, minor formatting differences in spacing
 
 The first run is treated as a special case: if no previous snapshot exists, the agent stores the extraction and treats it as the baseline. It does not log a false-positive change on the initial run.
 
+### Flapping prevention
+
+During verification, repeated change records were traced to two separate issues. The live v2 page was stable, but the extraction schema and prompt allowed the model to vary display labels, price formatting, date formatting, and whether tier descriptions were included as features. In addition, the intentional `--simulate-change` test writes a changed payload to the same snapshot history, so the next real run correctly reconciles that test value with the live page.
+
+The extractor now asks for canonical values and normalizes the structured response before diffing: marketing labels are removed from tier names, prices use `/mo`, timestamps use the canonical PT ISO format, and only four factual feature bullets are retained. A baseline reconciliation may legitimately produce one change; after that, three consecutive unchanged live runs produced zero changes. Simulation data should be treated as test data, not as a production baseline.
+
 ## What happens when something goes wrong
 
 This project is intentionally honest about failure handling. There are a few outcome states the run can produce:
@@ -107,6 +113,8 @@ You can review the workflow output in the GitHub Actions tab for the repository,
    ```
 
 The alert simulation posts one fake pricing-change message and one fake blocked-run message. Confirm both appear in the configured Slack channel and that each includes a timestamp and dashboard link.
+
+The `--simulate-change` flag intentionally persists a fake changed payload so the diff and alert path can be tested. Run a normal live pass afterward to restore the real target as the latest baseline before evaluating no-change stability.
 
 This will navigate to the mock target page, scrape the full visible text, compare it to the most recent stored snapshot, log change records if needed, and print the final JSON output in the terminal.
 

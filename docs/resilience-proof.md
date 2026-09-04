@@ -47,3 +47,21 @@ This is intentionally different from brittle extraction methods that fail when a
 ## Summary
 
 The v1 → v2 redesign changed the page structure, not the pricing meaning. The system continued to extract the same structured pricing data without code changes, which is the core evidence that this autonomous monitoring system is resilient to redesigns.
+
+## Labeled evaluation: v1/v2 plus five additional variations
+
+On 2026-09-04, the existing v1 and v2 snapshot payloads and five new fixtures under [mock-target/eval](../mock-target/eval) were evaluated with the existing Playwright scrape, anomaly detector, OpenAI extraction, and diff modules. The evaluator is available as `npm run evaluate` from the `agent` directory. The run used real OpenAI extraction for the four non-blocked HTML fixtures and did not write to Supabase.
+
+| Case | Label | Result | Correct extraction/outcome | False-positive change detection | Trigger-to-Slack alert |
+| --- | --- | --- | --- | ---: | --- |
+| v1 | Known good | Baseline payload | Yes | 0 | Not measured |
+| v2 | Known good | Baseline payload | Yes | 0 | Not measured |
+| 01-reworded | Known good | Success, 3 differing fields | No | 1 | Not measured |
+| 02-editorial | Known good | Success, 3 differing fields | No | 1 | Not measured |
+| 03-label-shift | Known good | Canonical payload | Yes | 0 | Not measured |
+| 04-missing-price | Missing price | Success, but incorrectly accepted | No | 0 | Not measured |
+| 05-blocked | Blocked/CAPTCHA | Blocked | Yes | 0 | Not measured |
+
+Measured summary: known-good extraction rate was **3/5 (60%)**. False-positive change detections occurred in **2/5 known-good cases (40%)**, affecting six field-level comparisons total. The missing-price fixture exposed a validation gap: the model supplied an apparently valid price-like value for a tier whose page explicitly said to contact the company. The CAPTCHA fixture was correctly stopped before extraction.
+
+Slack latency was intentionally not recorded in this run because the evaluator did not post test alerts to the configured webhook. Therefore no trigger-to-alert number is claimed here. A production-like latency pass requires an explicitly authorized test webhook and a run-trigger timestamp; the public scheduled workflow evidence is separate from this labeled local fixture run.

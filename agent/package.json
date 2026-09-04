@@ -5,7 +5,8 @@
   "description": "Playwright + OpenAI extraction agent for a resilient mock competitor pricing page.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "evaluate": "node evaluate.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
