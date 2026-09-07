@@ -65,3 +65,26 @@ On 2026-09-04, the existing v1 and v2 snapshot payloads and five new fixtures un
 Measured summary: known-good extraction rate was **3/5 (60%)**. False-positive change detections occurred in **2/5 known-good cases (40%)**, affecting six field-level comparisons total. The missing-price fixture exposed a validation gap: the model supplied an apparently valid price-like value for a tier whose page explicitly said to contact the company. The CAPTCHA fixture was correctly stopped before extraction.
 
 Slack latency was intentionally not recorded in this run because the evaluator did not post test alerts to the configured webhook. Therefore no trigger-to-alert number is claimed here. A production-like latency pass requires an explicitly authorized test webhook and a run-trigger timestamp; the public scheduled workflow evidence is separate from this labeled local fixture run.
+
+## Real 7-case evaluation set & empirical performance metrics
+
+On 2026-09-08, the 7-case evaluation suite (comprising `v1`, `v2`, and five dedicated mock target variations under `mock-target/test-set`) was executed end-to-end against the agent's Playwright scraper, OpenAI extractor (`gpt-4o-mini`), anomaly detector, diff engine, and live Slack webhook notifier (`npm run eval-suite` / `node run-eval-suite.js`).
+
+### Test matrix & empirical results
+
+| Case | Description | Extraction Succeeded | Correct Values / Outcome | Alerted | Expected Alert | Trigger-to-Slack Latency | Result Classification |
+| --- | --- | --- | --- | --- | --- | ---: | --- |
+| **v1** | Baseline card layout | Yes | Yes | No | No | N/A | Correct (Silent) |
+| **v2** | Redesigned hero + panel layout | Yes | Yes | No | No | N/A | Correct (Silent) |
+| **01-structure-change** | Same pricing, different HTML tags/classes | Yes | No | Yes | No | 6,464 ms | False Positive |
+| **02-wording-change** | Same pricing, reworded descriptions | Yes | No | Yes | No | 4,872 ms | False Positive |
+| **03-price-changed** | SunCore 6 price changed ($89/mo → $99/mo) | Yes | Yes | Yes | Yes | 11,139 ms | True Positive |
+| **04-feature-removed** | SunBalance 8 feature bullet removed | Yes | Yes | Yes | Yes | 6,117 ms | True Positive |
+| **05-blocked-captcha** | Cloudflare / CAPTCHA security check | No (Blocked) | Yes (Flagged) | No | No | N/A | Correct (Blocked) |
+
+### Calculated summary metrics
+
+- **Extraction Accuracy**: **57.1%** (4 / 7 correct extractions/outcomes: `v1`, `v2`, `04-feature-removed`, and `05-blocked-captcha`).
+- **False-Positive Rate**: **40.0%** (2 / 5 runs that should not alert: `01-structure-change` and `02-wording-change` caused minor LLM extraction text variations that triggered diffs).
+- **Avg Alert Latency**: **8.63 seconds** (8,628 ms average across the two genuine change cases that correctly alerted: `03-price-changed` at 11,139 ms and `04-feature-removed` at 6,117 ms).
+

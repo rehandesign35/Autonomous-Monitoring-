@@ -1,0 +1,97 @@
+{
+  "evaluatedAt": "2026-09-07T20:11:06.204Z",
+  "totalRuns": 7,
+  "correctExtractions": 4,
+  "extractionAccuracy": "57.1%",
+  "incorrectlyAlerted": 2,
+  "runsShouldNotAlert": 5,
+  "falsePositiveRate": "40.0%",
+  "avgAlertLatencyMs": 8628,
+  "avgAlertLatencySec": "8.63 s",
+  "results": [
+    {
+      "id": "v1",
+      "description": "v1 Baseline Layout",
+      "shouldAlert": false,
+      "extractionSucceeded": true,
+      "extractionCorrect": true,
+      "changesDetected": 0,
+      "alerted": false,
+      "correctBehavior": true,
+      "alertLatencyMs": null,
+      "error": null
+    },
+    {
+      "id": "v2",
+      "description": "v2 Redesigned Layout",
+      "shouldAlert": false,
+      "extractionSucceeded": true,
+      "extractionCorrect": true,
+      "changesDetected": 0,
+      "alerted": false,
+      "correctBehavior": true,
+      "alertLatencyMs": null,
+      "error": null
+    },
+    {
+      "id": "01-structure-change",
+      "description": "Same pricing, different HTML structure/class names",
+      "shouldAlert": false,
+      "extractionSucceeded": true,
+      "extractionCorrect": false,
+      "changesDetected": 3,
+      "alerted": true,
+      "correctBehavior": false,
+      "alertLatencyMs": 6464,
+      "error": null
+    },
+    {
+      "id": "02-wording-change",
+      "description": "Same pricing, different wording of feature descriptions",
+      "shouldAlert": false,
+      "extractionSucceeded": true,
+      "extractionCorrect": false,
+      "changesDetected": 4,
+      "alerted": true,
+      "correctBehavior": false,
+      "alertLatencyMs": 4872,
+      "error": null
+    },
+    {
+      "id": "03-price-changed",
+      "description": "One tier price actually changed ($89 -> $99)",
+      "shouldAlert": true,
+      "extractionSucceeded": true,
+      "extractionCorrect": false,
+      "changesDetected": 4,
+      "alerted": true,
+      "correctBehavior": true,
+      "alertLatencyMs": 11139,
+      "error": null
+    },
+    {
+      "id": "04-feature-removed",
+      "description": "A feature bullet actually removed",
+      "shouldAlert": true,
+      "extractionSucceeded": true,
+      "extractionCorrect": true,
+      "changesDetected": 4,
+      "alerted": true,
+      "correctBehavior": true,
+      "alertLatencyMs": 6117,
+      "error": null
+    },
+    {
+      "id": "05-blocked-captcha",
+      "description": "Page returns a blocked/CAPTCHA-style response",
+      "shouldAlert": false,
+      "extractionSucceeded": false,
+      "extractionCorrect": true,
+      "changesDetected": 0,
+      "alerted": false,
+      "correctBehavior": true,
+      "alertLatencyMs": null,
+      "error": "Page text or title matches common CAPTCHA/block challenge wording."
+    }
+  ]
+}
